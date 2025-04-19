@@ -1,0 +1,20 @@
+{
+  "name": "nft-rarity-bot",
+  "version": "1.0.0",
+  "description": "A bot that analyzes NFT rarity based on metadata and traits",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["nft", "rarity", "ethereum", "opensea", "metadata"],
+  "author": "SaraBrown4",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

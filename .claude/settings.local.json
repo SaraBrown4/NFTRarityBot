@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git config:*)",
+      "Bash(export GIT_AUTHOR_DATE=\"2025-04-19T19:47:23\")",
+      "Bash(export GIT_COMMITTER_DATE=\"2025-04-19T19:47:23\")",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
