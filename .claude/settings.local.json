@@ -5,7 +5,10 @@
       "Bash(export GIT_AUTHOR_DATE=\"2025-04-19T19:47:23\")",
       "Bash(export GIT_COMMITTER_DATE=\"2025-04-19T19:47:23\")",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(export GIT_AUTHOR_DATE=\"2025-04-21T14:22:47\")",
+      "Bash(export GIT_COMMITTER_DATE=\"2025-04-21T14:22:47\")"
     ],
     "deny": [],
     "ask": []
