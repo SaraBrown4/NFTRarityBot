@@ -1,4 +1,6 @@
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 class NFTRarityBot {
@@ -80,6 +82,46 @@ class NFTRarityBot {
         });
 
         return rarityData;
+    }
+
+    async exportToJSON(data, contractAddress) {
+        const filename = `${contractAddress}_rarity_${Date.now()}.json`;
+        const filepath = path.join('./exports', filename);
+        
+        if (!fs.existsSync('./exports')) {
+            fs.mkdirSync('./exports');
+        }
+
+        try {
+            fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
+            console.log(`Data exported to ${filepath}`);
+            return filepath;
+        } catch (error) {
+            console.error('Error exporting data:', error.message);
+            throw error;
+        }
+    }
+
+    async generateReport(contractAddress) {
+        const rarityData = await this.analyze(contractAddress);
+        
+        if (!rarityData || rarityData.length === 0) {
+            return null;
+        }
+
+        const report = {
+            contractAddress,
+            totalNFTs: rarityData.length,
+            timestamp: new Date().toISOString(),
+            topRarest: rarityData.slice(0, 10),
+            statistics: {
+                highestRarity: Math.max(...rarityData.map(n => parseFloat(n.rarityScore))),
+                lowestRarity: Math.min(...rarityData.map(n => parseFloat(n.rarityScore))),
+                averageRarity: (rarityData.reduce((sum, n) => sum + parseFloat(n.rarityScore), 0) / rarityData.length).toFixed(2)
+            }
+        };
+
+        return report;
     }
 }
 

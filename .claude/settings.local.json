@@ -8,7 +8,9 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(export GIT_AUTHOR_DATE=\"2025-04-21T14:22:47\")",
-      "Bash(export GIT_COMMITTER_DATE=\"2025-04-21T14:22:47\")"
+      "Bash(export GIT_COMMITTER_DATE=\"2025-04-21T14:22:47\")",
+      "Bash(export GIT_AUTHOR_DATE=\"2025-04-23T21:18:12\")",
+      "Bash(export GIT_COMMITTER_DATE=\"2025-04-23T21:18:12\")"
     ],
     "deny": [],
     "ask": []

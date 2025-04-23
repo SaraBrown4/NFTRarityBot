@@ -12,7 +12,16 @@ async function main() {
     for (const address of collections) {
         console.log(`\n=== Analyzing Collection: ${address} ===`);
         try {
-            await bot.analyze(address);
+            const report = await bot.generateReport(address);
+            
+            if (report) {
+                console.log(`Total NFTs: ${report.totalNFTs}`);
+                console.log(`Highest Rarity Score: ${report.statistics.highestRarity}`);
+                console.log(`Average Rarity Score: ${report.statistics.averageRarity}`);
+                
+                // Export the full rarity data
+                await bot.exportToJSON(report, address);
+            }
         } catch (error) {
             console.error(`Failed to analyze ${address}:`, error.message);
         }
