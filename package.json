@@ -4,8 +4,13 @@
   "description": "A bot that analyzes NFT rarity based on metadata and traits",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node cli.js",
+    "dev": "nodemon cli.js",
+    "analyze": "node cli.js analyze",
+    "report": "node cli.js report"
+  },
+  "bin": {
+    "nft-rarity": "./cli.js"
   },
   "keywords": ["nft", "rarity", "ethereum", "opensea", "metadata"],
   "author": "SaraBrown4",
