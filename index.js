@@ -2,12 +2,15 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const { RetryHelper, ValidationHelper } = require('./utils');
+const Cache = require('./cache');
+const Logger = require('./logger');
 require('dotenv').config();
 
 class NFTRarityBot {
     constructor() {
         this.collections = new Map();
         this.apiKey = process.env.OPENSEA_API_KEY;
+        this.cache = new Cache();
     }
 
     async fetchCollection(contractAddress) {
@@ -15,9 +18,16 @@ class NFTRarityBot {
             throw new Error('Invalid contract address format');
         }
 
-        console.log(`Fetching collection data for ${contractAddress}...`);
+        // Check cache first
+        const cached = await this.cache.get(contractAddress);
+        if (cached) {
+            Logger.info(`Using cached data for ${contractAddress}`);
+            return cached;
+        }
+
+        Logger.info(`Fetching collection data for ${contractAddress}...`);
         
-        return await RetryHelper.withRetry(async () => {
+        const data = await RetryHelper.withRetry(async () => {
             const response = await axios.get(
                 `https://api.opensea.io/api/v1/assets?asset_contract_address=${contractAddress}&limit=50`,
                 {
@@ -36,6 +46,11 @@ class NFTRarityBot {
                 ValidationHelper.sanitizeMetadata(asset)
             ).filter(Boolean);
         }, 3, 2000);
+
+        // Cache the fetched data
+        await this.cache.set(contractAddress, data);
+        
+        return data;
     }
 
     calculateRarity(nfts) {
